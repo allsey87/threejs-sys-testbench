@@ -3,7 +3,7 @@ use std::rc::Rc;
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use threejs_sys::{Scene, PerspectiveCamera, BoxGeometry, MeshBasicMaterial, Mesh, Color, WebGLRenderer};
+use threejs_sys::{Scene, PerspectiveCamera, BoxGeometry, MeshStandardMaterial, Mesh, Color, PointLight, WebGLRenderer};
 
 #[wasm_bindgen]
 extern "C" {
@@ -46,11 +46,18 @@ pub fn main() -> Result<(), JsValue> {
     camera.translate_z(5.0);
     let geometry = BoxGeometry::new(1.0, 1.0, 1.0);
     let color = Color::new(0.0, 1.0, 0.0);
-    let material = MeshBasicMaterial::new();
+    let material = MeshStandardMaterial::new();
     material.set_color(&color);
-    let cube = Mesh::new(geometry, material);
+    let cube = Mesh::new(&geometry, &material);
+    
+    let light = PointLight::new(0xffffff, 1.0, 0.0, 1.0);
+
+    //light.set_position(&Vector3::new(0.0,2.0,0.0));
+    light.translate_y(1.0);
+    light.translate_z(5.0);
 
     scene.add( &cube );
+    scene.add( &light);
 
     let f = Rc::new(RefCell::new(None));
     let g = f.clone();
