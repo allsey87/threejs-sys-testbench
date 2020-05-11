@@ -1,11 +1,13 @@
-# wasm-threejs
-
-A simple project that aims at controlling Three.js using WebAssembly
+# Testbench for threejs-sys
 
 You can build the example locally with:
-
 ```
-$ wasm-pack build --target web
+wasm-pack build --target web
 ```
 
-and then opening `index.html` in a browser should run the example!
+Host the repository's root directory with:
+```
+python -m http.server
+```
+
+and then opening `http://localhost:8000/` in a browser should run the example!
